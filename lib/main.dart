@@ -4,42 +4,38 @@ void main() {
   runApp(const Screen());
 }
 
-class Screen extends StatelessWidget {
+class Screen extends StatefulWidget {
   const Screen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    const TextStyle style = TextStyle(
-      color: Colors.red,
-      fontSize: 25,
-      fontWeight: FontWeight.bold,
-    );
+  State<Screen> createState() => _ScreenState();
+}
 
+class _ScreenState extends State<Screen> {
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Row',
+      title: 'Botones',
       home: Scaffold(
         body: SafeArea(
-          child: Center(
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.baseline,
-              textBaseline: TextBaseline.alphabetic,
-              children: [
-                const Text(
-                  'Uno',
-                  style: style,
+          child: Column(
+            children: [
+              RaisedButton(
+                color: Colors.yellow,
+                onPressed: () {},
+                child: const Text('ElevateButton'),
+              ),
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.green),
                 ),
-                Text(
-                  'Dos',
-                  style: style.copyWith(fontSize: 16),
-                ),
-                Text(
-                  'Tres',
-                  style: style.copyWith(color: Colors.blue, fontSize: 35),
-                ),
-              ],
-            ),
+                onPressed: () {
+                  print('ElevateButton');
+                },
+                child: const Text('ElevateButton'),
+              ),
+            ],
           ),
         ),
       ),
