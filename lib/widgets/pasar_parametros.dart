@@ -9,12 +9,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Pasar parametros',
-      routes: {
-        '/': (context) => const TextScreen(),
-        '/edit': (context) => const EditScreen(),
-      },
+      home: TextScreen(),
     );
   }
 }
@@ -45,14 +42,13 @@ class _TextScreenState extends State<TextScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(
+                Navigator.push(
                   context,
-                  '/edit',
-                  arguments: EditScreenParams(_text),
+                  MaterialPageRoute(builder: (context) => EditScreen(_text)),
                 ).then((value) {
                   if (value != null) {
                     setState(() {
-                      _text = value.toString();
+                      _text = value;
                     });
                   }
                 });
@@ -67,32 +63,21 @@ class _TextScreenState extends State<TextScreen> {
 }
 
 class EditScreen extends StatefulWidget {
-  const EditScreen({Key? key}) : super(key: key);
+  String text;
+
+  EditScreen(this.text, {Key? key}) : super(key: key);
 
   @override
   State<EditScreen> createState() => _EditScreenState();
 }
 
 class _EditScreenState extends State<EditScreen> {
-  final TextEditingController _controller = TextEditingController();
+  late TextEditingController _controller;
 
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    var parametros =
-        ModalRoute.of(context)?.settings.arguments as EditScreenParams;
-    _controller.text = parametros.text;
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    print('Dispose');
+    _controller = TextEditingController(text: widget.text);
   }
 
   @override
@@ -121,8 +106,38 @@ class _EditScreenState extends State<EditScreen> {
   }
 }
 
-class EditScreenParams {
-  String text;
 
-  EditScreenParams(this.text);
-}
+
+
+// EditScreen como Stateless
+// class EditScreen extends StatelessWidget {
+//   String text;
+
+//   EditScreen(this.text, {Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('EditScreen'),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Text(text),
+//             const SizedBox(
+//               height: 20,
+//             ),
+//             ElevatedButton(
+//               onPressed: () {
+//                 Navigator.pop(context);
+//               },
+//               child: const Text('Volver'),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
