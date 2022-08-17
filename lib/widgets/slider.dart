@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'Switch',
+      title: 'Slider',
       home: Screen(),
     );
   }
@@ -24,33 +24,36 @@ class Screen extends StatefulWidget {
 }
 
 class _ScreenState extends State<Screen> {
-  bool _value = false;
-
-  void _onChange(value) {
-    setState(() {
-      _value = value;
-    });
-  }
+  double rating = 0.0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Switch'),
+        title: const Text('Slider'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: Row(
+        child: Column(
           children: [
-            Switch(
-              activeColor: Colors.green,
-              activeTrackColor: Colors.yellow,
-              inactiveThumbColor: Colors.blue,
-              inactiveTrackColor: Colors.pink,
-              value: _value,
-              onChanged: _onChange,
+            SizedBox(
+              width: 300,
+              child: Slider(
+                value: rating,
+                onChanged: (value) {
+                  setState(() {
+                    rating = value;
+                  });
+                },
+                // divisions: 4,
+                min: 0,
+                max: 100,
+                label: '$rating',
+                activeColor: Colors.green,
+                thumbColor: Colors.red,
+              ),
             ),
-            Text('Valor: $_value'),
+            Text('$rating'),
           ],
         ),
       ),

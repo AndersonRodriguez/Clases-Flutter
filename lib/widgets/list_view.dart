@@ -129,6 +129,20 @@ class Screen extends StatelessWidget {
       //     ),
       //   ],
       // ),
+      // body: ListView.builder(
+      //   itemCount: entries.length,
+      //   scrollDirection: Axis.horizontal,
+      //   itemBuilder: (context, index) {
+      //     return Container(
+      //       height: 50.0,
+      //       width: 500.0,
+      //       color: Colors.amber[colorCodes[index]],
+      //       child: Center(
+      //         child: Text('Entradas: ${entries[index]}'),
+      //       ),
+      //     );
+      //   },
+      // ),
     );
   }
 }
